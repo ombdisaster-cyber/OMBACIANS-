@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMBACIANS - ST JOSEPH'S COLLEGE OMBACI</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="logo"><img src="assets/logo.png" alt="Ombaci Logo"> OMBACI<span>ANS</span></div>
+    <div class="nav-links">
+      <a href="#home">Home</a><a href="#directory">Directory</a><a href="#premium">Premium</a>
+    </div>
+    <button class="btn-icon" onclick="toggleTheme()">🌓</button>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Welcome to <span>OMBACIANS</span></h1>
+    <p>Uniting all past and present students of ST JOSEPH'S COLLEGE OMBACI. Labor et Caritas.</p>
+    <button class="btn" onclick="adminLogin()">Admin Login</button>
+  </div>
+</section>
+
+<section id="adminPanel" style="display:none" class="container">
+  <h2 class="section-title">Admin Dashboard - JOSH TACH</h2>
+  <div class="card">
+    <h3>Add Member</h3>
+    <input id="mName" placeholder="Full Name">
+    <input id="mClass" placeholder="Class & Year e.g S.6 2019">
+    <input id="mJob" placeholder="Profession">
+    <button class="btn" onclick="addMember()">Add Member</button>
+    <button class="btn" onclick="adminLogout()">Logout</button>
+  </div>
+</section>
+
+<section id="directory" class="container">
+  <h2 class="section-title">OMBACIANS Directory</h2>
+  <input type="text" id="search" placeholder="Search name, class, profession..." onkeyup="searchDir()">
+  <div class="grid-3" id="dirList">Loading members...</div>
+</section>
+
+<section id="premium" class="container">
+  <h2 class="section-title">Go Premium - 20,000 UGX/Year</h2>
+  <div class="card">
+    <p>Get Verified Badge ⭐, Job Board Access, HD Gallery Upload</p>
+    <input id="momoNumber" placeholder="MTN MoMo Number 07x...">
+    <button class="btn" onclick="payPremium()">Pay with MTN MoMo</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 OMBACIANS. ST JOSEPH'S COLLEGE OMBACI</p>
+  <p>Made with ❤️ by <b>JOSH TACH</b></p>
+</footer>
+
+<button id="chatBtn" onclick="toggleChat()">💬</button>
+<div id="chatBox">
+  <div id="chatHeader">OMBACI Bot <span onclick="toggleChat()">x</span></div>
+  <div id="chatMessages"><p><b>Bot:</b> Hello Ombacian! Ask me about history, motto, or reunion.</p></div>
+  <div id="chatInput"><input type="text" id="userMsg" placeholder="Ask..." onkeypress="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()">Send</button></div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMBACIANS - ST JOSEPH'S COLLEGE OMBACI</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="logo"><img src="assets/logo.png" alt="Ombaci Logo"> OMBACI<span>ANS</span></div>
+    <div class="nav-links">
+      <a href="#home">Home</a><a href="#directory">Directory</a><a href="#premium">Premium</a>
+    </div>
+    <button class="btn-icon" onclick="toggleTheme()">🌓</button>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Welcome to <span>OMBACIANS</span></h1>
+    <p>Uniting all past and present students of ST JOSEPH'S COLLEGE OMBACI. Labor et Caritas.</p>
+    <button class="btn" onclick="adminLogin()">Admin Login</button>
+  </div>
+</section>
+
+<section id="adminPanel" style="display:none" class="container">
+  <h2 class="section-title">Admin Dashboard - JOSH TACH</h2>
+  <div class="card">
+    <h3>Add Member</h3>
+    <input id="mName" placeholder="Full Name">
+    <input id="mClass" placeholder="Class & Year e.g S.6 2019">
+    <input id="mJob" placeholder="Profession">
+    <button class="btn" onclick="addMember()">Add Member</button>
+    <button class="btn" onclick="adminLogout()">Logout</button>
+  </div>
+</section>
+
+<section id="directory" class="container">
+  <h2 class="section-title">OMBACIANS Directory</h2>
+  <input type="text" id="search" placeholder="Search name, class, profession..." onkeyup="searchDir()">
+  <div class="grid-3" id="dirList">Loading members...</div>
+</section>
+
+<section id="premium" class="container">
+  <h2 class="section-title">Go Premium - 20,000 UGX/Year</h2>
+  <div class="card">
+    <p>Get Verified Badge ⭐, Job Board Access, HD Gallery Upload</p>
+    <input id="momoNumber" placeholder="MTN MoMo Number 07x...">
+    <button class="btn" onclick="payPremium()">Pay with MTN MoMo</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 OMBACIANS. ST JOSEPH'S COLLEGE OMBACI</p>
+  <p>Made with ❤️ by <b>JOSH TACH</b></p>
+</footer>
+
+<button id="chatBtn" onclick="toggleChat()">💬</button>
+<div id="chatBox">
+  <div id="chatHeader">OMBACI Bot <span onclick="toggleChat()">x</span></div>
+  <div id="chatMessages"><p><b>Bot:</b> Hello Ombacian! Ask me about history, motto, or reunion.</p></div>
+  <div id="chatInput"><input type="text" id="userMsg" placeholder="Ask..." onkeypress="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()">Send</button></div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// 1. PASTE YOUR FIREBASE CONFIG HERE
+const firebaseConfig = {
+  apiKey: "PASTE_HERE",
+  authDomain: "PASTE_HERE",
+  projectId: "PASTE_HERE",
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+
+// 2. ADMIN SETUP
+const ADMIN_EMAIL = "yiikijoshua718@gmail.com";
+window.adminLogin = function(){
+  let email = prompt("Admin Email:", ADMIN_EMAIL);
+  let pass = prompt("Password:");
+  signInWithEmailAndPassword(auth, email, pass).catch(e=>alert(e.message));
+}
+window.adminLogout = function(){ signOut(auth); }
+onAuthStateChanged(auth, user=>{
+  document.getElementById('adminPanel').style.display = user ? 'block' : 'none';
+});
+
+// 3. LOAD + ADD MEMBERS
+window.loadDir = async function(){
+  const snap = await getDocs(collection(db, "members"));
+  window.allMembers = snap.docs.map(d=>({id:d.id, ...d.data()}));
+  renderDir(allMembers);
+}
+function renderDir(m){ 
+  document.getElementById('dirList').innerHTML = m.map(x=>`
+    <div class="card">
+      <h3>${x.name} ${x.premium?'⭐':''}</h3>
+      <p>${x.class}</p><p>${x.job}</p>
+    </div>`).join('') || "No members yet. Add one as Admin."
+}
+window.addMember = async function(){
+  await addDoc(collection(db,"members"),{name:mName.value,class:mClass.value,job:mJob.value,premium:false});
+  loadDir(); alert("Member Added"); mName.value="";mClass.value="";mJob.value="";
+}
+window.searchDir = function(){let q=search.value.toLowerCase(); renderDir(allMembers.filter(m=>JSON.stringify(m).toLowerCase().includes(q)))}
+
+// 4. MTN MOMO + EMAIL
+window.payPremium = async function(){
+  let phone = document.getElementById('momoNumber').value;
+  if(!phone) return alert("Enter MoMo number");
+  alert(`Payment request sent to ${phone}. Complete on your phone.`);
+  await addDoc(collection(db,"payments"),{phone,amount:20000,status:"pending",date:new Date()});
+  emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{subject:"New Premium Payment",message:`Phone: ${phone} paid 20k UGX`,to_email:ADMIN_EMAIL});
+}
+
+// 5. CHATBOT + THEME
+const bot = {"history":"ST JOSEPH'S COLLEGE OMBACI was founded in 1955 by Comboni Missionaries.","motto":"Labor et Caritas - Work and Charity","colors":"Navy Blue and White","reunion":"15 Dec 2026 at Ombaci","default":"Hello Ombacian! Ask about history, motto, reunion."};
+window.toggleChat = function(){chatBox.style.display=chatBox.style.display==='flex'?'none':'flex'}
+window.sendMsg = function(){let msg=userMsg.value; chatMessages.innerHTML+=`<p><b>You:</b>${msg}</p>`; let r=bot.default; for(let k in bot) if(msg.toLowerCase().includes(k)) r=bot[k]; chatMessages.innerHTML+=`<p><b>Bot:</b>${r}</p>`; userMsg.value=''; chatMessages.scrollTop = chatMessages.scrollHeight;}
+window.toggleTheme = function(){document.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'dark':'light'}
+
+loadDir();
